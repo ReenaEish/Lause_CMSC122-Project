@@ -1,0 +1,53 @@
+/* Puzzle style and aesthetics */ 
+
+/* General Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #B5DCF8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Game Board */
+#game-board {
+    text-align: center;
+    max-width: 300px;
+}
+
+/* Grid Container */
+#grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+    width: 300px;
+    height: 300px;
+}
+
+/* Tiles */
+.tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FF9A59;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.tile.empty {
+    background-color: #B5DCF8;
+    cursor: default;
+}
+
+/* Win Message */
+#status-message {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #28a745;
+}

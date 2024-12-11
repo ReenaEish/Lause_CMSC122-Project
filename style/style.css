@@ -1,43 +1,62 @@
-/* Puzzle style and aesthetics */ 
+/* Puzzle style and aesthetics */
 
 /* General Reset */
 body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: Arial, sans-serif;
+    align-items: center;
     background-color: #B5DCF8;
     display: flex;
+    font-family: Arial, sans-serif;
+    height: 100%;
     justify-content: center;
-    align-items: center;
+    margin: 0;
+    padding: 0;
 }
 
-/* Game Board */
-#game-board {
-    text-align: center;
+/* Classes */
+button {
+    background-color: #FF9A59;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    margin: 15px;
+    padding: 15px 30px;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s; /* Smooth hover animation */
+}
+
+button:active {
+    transform: translateY(3px); /* Slight press effect */
+}
+
+button:hover {
+    background-color: #E65B00; /* Orange hover effect */
+    color: #ffffff; /* White text */
+    transform: translateY(-5px); /* Slight lift effect */
+}
+
+.placeholder {
+    border: 2px dashed #007bff;
+    color: #007bff;
+    font-size: 1.2rem;
+    margin: 20px auto;
     max-width: 300px;
+    padding: 50px;
+    text-align: center;
+    width: 80%;
 }
 
-/* Grid Container */
-#grid-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 5px;
-    width: 300px;
-    height: 300px;
-}
-
-/* Tiles */
 .tile {
-    display: flex;
-    justify-content: center;
     align-items: center;
     background-color: #FF9A59;
+    border-radius: 5px;
     color: white;
+    cursor: pointer;
+    display: flex;
     font-size: 1.5rem;
     font-weight: bold;
-    cursor: pointer;
-    border-radius: 5px;
+    justify-content: center;
 }
 
 .tile.empty {
@@ -45,9 +64,117 @@ body, html {
     cursor: default;
 }
 
-/* Win Message */
-#status-message {
+/* ID */
+#back-icon {
+    height: 35px;
+    width: 35px;
+    object-fit: contain; /* Ensure proper image scaling */
+}
+
+#back-to-menu-btn {
+    align-items: center;
+    background-color: #FF9A59; /* Orange button */
+    border: none; /* No border for a clean look */
+    border-radius: 6px; /* Rounded corners */
+    cursor: pointer;
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    transition: transform 0.2s ease-in-out; /* Smooth hover effect */
+    width: 50px; /* Fixed size for square button */
+}
+
+#back-to-menu-btn:hover {
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+/* Hint, Give Up, and Restart Buttons */
+.control-btn {
+    background-color: #FF9A59;
+    border: none;
+    border-radius: 6px; /* Rounded corners for consistency */
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 10px 20px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.control-btn:hover {
+    background-color: #E65B00;
+    transform: translateY(-3px); /* Lift effect */
+}
+
+.control-btn:active {
+    background-color: #DF6F27;
+    transform: translateY(1px); /* Press effect */
+}
+
+/* Controls Section */
+#controls {
+    align-items: center;
+    display: flex;
+    gap: 15px; /* Space between buttons */
+    justify-content: center; /* Center all buttons */
     margin-top: 20px;
-    font-size: 1.2rem;
+}
+
+/* Game Board */
+#game-board {
+    max-width: 300px;
+    text-align: center;
+}
+
+#grid-container {
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(4, 1fr);
+    height: 300px;
+    width: 300px;
+}
+
+/* Main Menu */
+#main-menu {
+    text-align: center;
+}
+
+#main-menu button {
+    --background-color: #FF9A59;
+    --background-color-dark: #DF6F27;
+    background-color: var(--background-color);
+    border: none;
+    box-shadow: 10px 10px 0 var(--background-color-dark);
+    color: #ffffff;
+    cursor: pointer;
+    display: block; /* Makes the buttons take up their own row */
+    font-size: 1.7rem;
+    margin: 40px auto; /* Center-aligns and spaces buttons vertically */
+    padding: 15px 25px;
+    transition: background-color 0.3s, transform 0.1s;
+    width: 200px; /* Optional: Set a consistent width */
+}
+
+#main-menu h1 {
+    --background-color: #6FACE4;
+    --background-color-dark: #3B7CB8;
+    background-color: var(--background-color);
+    box-shadow: 10px 10px 0 var(--background-color-dark);
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 5rem;
+    font-weight: bold;
+    margin-bottom: 100px;
+    margin-top: -100px;
+    padding: 30px 50px;
+    width: 400px;
+}
+
+#status-message {
     color: #28a745;
+    font-size: 1.2rem;
+    margin-top: 20px;
+}
+
+.hidden {
+    display: none;
 }

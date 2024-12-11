@@ -3,17 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>15 Puzzle</title>
+    <title>NumSlider</title>
     <link rel="stylesheet" href="style/style.css">
 </head>
+
 <body>
-    <div id="game-board">
-        <h1>15 Puzzle</h1>
-        <div id="grid-container"></div>
-        <div id="status-message" class="hidden">Congratulations! You solved the puzzle!</div>
+    <!-- Main Menu -->
+    <div id="main-menu">
+        <h1>NumSlider</h1>
+        <button type="button" id="new-game-btn" class="mbutton">New Game</button>
+        <button type="button" id="how-to-play-btn" class="mbutton">How to Play</button>
     </div>
-    <script src="src/utils.js"></script>
-    <script src="src/grid.js"></script>
+
+    <!-- Game board -->
+    <div id="game-board" class="hidden">
+        <h2>Game Board Placeholder</h2>
+        <div class="placeholder">[Placeholder for game board]</div>
+        <div id="controls">
+            <!-- Back to Menu Button -->
+            <button id="back-to-menu-btn" class="mbutton">
+                <img id="back-icon" src="icons/Back_Button.png"></img>
+            </button>
+            <!-- Hint, Give Up, and Restart Buttons -->
+            <button id="hint-btn" class="control-btn">Hint</button>
+            <button id="give-up-btn" class="control-btn">Give Up</button>
+            <button id="restart-btn" class="control-btn">Restart</button>
+        </div>
+    </div>
+
+    <!-- How to Play Section -->
+    <div id="how-to-play" class="hidden">
+        <h2>How to Play</h2>
+        <div class="placeholder">[Placeholder for instructions]</div>
+        <button id="back-to-menu-btn">
+            <img id="back-icon" src="icons/Back_Button.png">
+        </button>
+    </div>
+
     <script src="src/main.js"></script>
 </body>
 </html>

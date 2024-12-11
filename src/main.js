@@ -12,13 +12,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const backToMenuGameBtn = document.getElementById('back-to-menu-btn');
     const backToMenuBtnHow = document.getElementById('back-to-menu-btn-how');
 
+     // Grid container to pass to initializeGrid
+    const gridContainer = document.getElementById('grid-container');
+
     // Event Listeners
     newGameBtn.addEventListener('click', () => {
         toggleSection(gameBoard);
         console.log('New Game button clicked'); // Debugging log
-        // Placeholder for initializing the game grid
+        initializeGrid(gridContainer); // Initialize the game grid when new game starts
     });
-
     howToPlayBtn.addEventListener('click', () => {
         toggleSection(howToPlay);
         console.log('How to Play button clicked'); // Debugging log

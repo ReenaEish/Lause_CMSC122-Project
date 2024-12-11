@@ -18,14 +18,16 @@
     <!-- Game board -->
     <div id="game-board" class="hidden">
         <h2>NumSlider</h2>
-        <!-- This is where the grid will render -->
-        <div id="grid-container" class="grid-container">
-            <!-- The grid will be dynamically injected here -->
+        <!-- Background Square -->
+        <div id="grid-background"></div>
+        <!-- Puzzle Grid -->
+        <div id="grid-container">
+            <!-- Tiles will be dynamically added here by JavaScript -->
         </div>
         <div id="controls">
             <!-- Back to Menu Button -->
             <button id="back-to-menu-btn" class="mbutton">
-                <img id="back-icon" src="icons/Back_Button.png"></img>
+                <img id="back-icon" src="icons/Back_Button.png">
             </button>
             <!-- Hint, Give Up, and Restart Buttons -->
             <button id="hint-btn" class="control-btn"><b>Hint</b></button>
@@ -62,7 +64,6 @@
     </div>
 
     <script src="src/main.js"></script>
-    <script src="src/tile.js"></script>
     <script src="src/grid.js"></script>
 
 </body>

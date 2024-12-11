@@ -18,25 +18,45 @@
     <!-- Game board -->
     <div id="game-board" class="hidden">
         <h2>Game Board Placeholder</h2>
-        <div class="placeholder">[Placeholder for game board]</div>
+        <div class="placeholder">
+            [Placeholder for game board]
+        </div>
         <div id="controls">
             <!-- Back to Menu Button -->
             <button id="back-to-menu-btn" class="mbutton">
                 <img id="back-icon" src="icons/Back_Button.png"></img>
             </button>
             <!-- Hint, Give Up, and Restart Buttons -->
-            <button id="hint-btn" class="control-btn">Hint</button>
-            <button id="give-up-btn" class="control-btn">Give Up</button>
-            <button id="restart-btn" class="control-btn">Restart</button>
+            <button id="hint-btn" class="control-btn"><b>Hint</b></button>
+            <button id="give-up-btn" class="control-btn"><b>Give Up</b></button>
+            <button id="restart-btn" class="control-btn"><b>Restart</b></button>
         </div>
     </div>
 
     <!-- How to Play Section -->
     <div id="how-to-play" class="hidden">
         <h2>How to Play</h2>
-        <div class="placeholder">[Placeholder for instructions]</div>
-        <button id="back-to-menu-btn">
-            <img id="back-icon" src="icons/Back_Button.png">
+        <div id="how-to-play-board">
+            <div id="how-to-play-container">
+                <h3 class="how-to-play-text">Objective:</h3>
+                <p>Arrange the numbered tiles in sequential order from 1 to 15, with the empty slot positioned at the bottom-right corner of the grid.
+                </p>
+                <h3 class="how-to-play-text">Game Controls:</h3>
+                    <ul>
+                        <li><b>Click or tap</b> on a tile next to the empty slot to slide it into that position.</li>
+                        <li>Alternatively, you can use the <b>keyboard arrow keys (or W, A, S, D keys)</b> to move tiles in the desired direction.</li>
+                    </ul>
+                <h3 class="how-to-play-text">Hints and Options:</h3>
+                <ul>
+                    <li><b>Hint:</b> Click the "Hint" button for a suggestion on your next move.</li>
+                    <li><b>Give Up:</b> Click "Give Up" to view the solution steps and see the puzzle solved.</li>
+                    <li><b>Restart:</b> Click "Restart" to reset the current puzzle arrangement.</li>
+                </ul>
+                <p>Goodluck, and enjoy solving the NumSlider!</p>
+            </div>
+        </div>
+        <button id="back-to-menu-btn-how" class="mbutton">
+            <img id="back-icon-how" src="icons/Back_Button.png">
         </button>
     </div>
 

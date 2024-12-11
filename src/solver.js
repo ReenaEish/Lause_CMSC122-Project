@@ -1,0 +1,1 @@
+// Give up Button - Auto Solver

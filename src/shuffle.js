@@ -1,1 +1,1 @@
-// Shuffle Tiles
+// Shuffle Tiles - Includes the restart button

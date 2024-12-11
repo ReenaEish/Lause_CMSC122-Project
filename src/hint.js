@@ -1,1 +1,1 @@
-// Hint Button
+// Hint Button -  highlights the adjacent tiles near the empty space or possible moves

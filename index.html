@@ -11,31 +11,41 @@
     <!-- Main Menu -->
     <div id="main-menu">
         <h1>NumSlider</h1>
+        <button type="button" id="continue-game-btn" class="mbutton hidden"><b>Continue Game</b></button>
         <button type="button" id="new-game-btn" class="mbutton"><b>New Game</b></button>
         <button type="button" id="how-to-play-btn" class="mbutton"><b>How to Play</b></button>
     </div>
 
-    <!-- Game board -->
-    <div id="game-board" class="hidden">
+     <!-- Game board -->
+     <div id="game-board" class="hidden">
         <h2>NumSlider</h2>
-        <!-- Background Square -->
         <div id="grid-background"></div>
-        <!-- Puzzle Grid -->
-        <div id="grid-container">
-            <!-- Tiles will be dynamically added here by JavaScript -->
-        </div>
+        <div id="grid-container"></div>
         <div id="controls">
-            <!-- Back to Menu Button -->
             <button id="back-to-menu-btn" class="mbutton">
                 <img id="back-icon" src="icons/Back_Button.png">
             </button>
-            <!-- Hint, Give Up, and Restart Buttons -->
             <button id="hint-btn" class="control-btn"><b>Hint</b></button>
             <button id="give-up-btn" class="control-btn"><b>Give Up</b></button>
             <button id="restart-btn" class="control-btn"><b>Restart</b></button>
         </div>
     </div>
 
+    <!-- Back to Menu Popup -->
+    <div id="popup-modal" class="hidden">
+        <div id="popup-content">
+            <h3>Back to Menu?</h3>
+            <div class="popup-buttons">
+                <button id="popup-no-btn" class="popup-btn">
+                    <img src="icons/x-mark.png" alt="No">
+                </button>
+                <button id="popup-yes-btn" class="popup-btn">
+                    <img src="icons/check-mark.png" alt="Yes">
+                </button>
+            </div>
+        </div>
+    </div>
+    
     <!-- How to Play Section -->
     <div id="how-to-play" class="hidden">
         <h2>How to Play</h2>

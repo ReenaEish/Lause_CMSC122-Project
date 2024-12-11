@@ -13,10 +13,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const backToMenuBtnHow = document.getElementById('back-to-menu-btn-how');
 
     // Event Listeners
-    newGameBtn.addEventListener('click', () => toggleSection(gameBoard));
-    howToPlayBtn.addEventListener('click', () => toggleSection(howToPlay));
-    backToMenuGameBtn.addEventListener('click', () => toggleSection(mainMenu));
-    backToMenuBtnHow.addEventListener('click', () => toggleSection(mainMenu));
+    newGameBtn.addEventListener('click', () => {
+        toggleSection(gameBoard);
+        console.log('New Game button clicked'); // Debugging log
+        // Placeholder for initializing the game grid
+    });
+
+    howToPlayBtn.addEventListener('click', () => {
+        toggleSection(howToPlay);
+        console.log('How to Play button clicked'); // Debugging log
+    });
+
+    backToMenuGameBtn.addEventListener('click', () => {
+        toggleSection(mainMenu);
+        console.log('Back to Menu button clicked (from Game Board)'); // Debugging log
+    });
+
+    backToMenuBtnHow.addEventListener('click', () => {
+        toggleSection(mainMenu);
+        console.log('Back to Menu button clicked (from How to Play)'); // Debugging log
+    });
 
     // Function to Toggle Sections
     function toggleSection(section) {

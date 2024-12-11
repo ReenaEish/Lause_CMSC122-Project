@@ -35,33 +35,51 @@ button:hover {
     transform: translateY(-5px); /* Slight lift effect */
 }
 
-.placeholder {
-    border: 2px dashed #007bff;
-    color: #007bff;
-    font-size: 1.2rem;
-    margin: 20px auto;
-    max-width: 300px;
-    padding: 50px;
-    text-align: center;
-    width: 80%;
+/* Grid container styling */
+#grid-container {
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(4, 1fr);
+    height: 320px;
+    width: 320px;
+    background-color: #6FACE4; /* Light blue box */
+    border-radius: 15px; /* Rounded corners */
+    padding: 5px; /* Small padding inside the grid */
 }
 
+/* Tile styling */
 .tile {
-    align-items: center;
-    background-color: #FF9A59;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FF9A59; /* Orange tiles */
+    color: white; /* White text for numbers */
     font-size: 1.5rem;
     font-weight: bold;
-    justify-content: center;
+    border-radius: 10px; /* Rounded corners for tiles */
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s; /* Smooth hover and press effects */
+    height: 100%; /* Ensure tiles fill grid slots */
+    width: 100%; /* Ensure tiles fill grid slots */
 }
 
+/* Empty slot styling */
 .tile.empty {
-    background-color: #B5DCF8;
-    cursor: default;
+    background-color: #3B7CB8; /* Dark blue background under tiles */
+    cursor: default; /* No pointer interaction for empty slots */
 }
+
+/* Hover effect for tiles */
+.tile:not(.empty):hover {
+    background-color: #E65B00; /* Slightly darker orange on hover */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Grid container padding effect */
+#grid-container .tile {
+    box-shadow: inset 0 0 0 3px #6FACE4; /* Light blue border to blend with container */
+}
+
 
 #back-icon {
     height: 26px;
@@ -146,7 +164,7 @@ button:hover {
     display: flex;
     gap: 15px; /* Space between buttons */
     justify-content: center; /* Center all buttons */
-    margin-top: 20px;
+    margin-top: 150px;
 }
 
 /* Game Board - grid*/
@@ -222,7 +240,7 @@ button:hover {
     display: block; /* Makes the buttons take up their own row */
     font-size: 1.7rem;
     margin: 40px auto; /* Center-aligns and spaces buttons vertically */
-    padding: 15px 25px;
+    padding: 15px 15px;
     transition: background-color 0.3s, transform 0.1s;
     width: 200px; /* Optional: Set a consistent width */
 }
@@ -242,6 +260,24 @@ button:hover {
     width: 400px;
 }
 
+#game-board h2 {
+    text-align: center;
+    --background-color: #6FACE4;
+    --background-color-dark: #3B7CB8;
+    background-color: var(--background-color);
+    box-shadow: 10px 10px 0 var(--background-color-dark);
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 70px;
+    margin-left: 30px;
+    margin-top: -100px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width: 200px;
+}
+
 #status-message {
     color: #28a745;
     font-size: 1.2rem;
@@ -251,3 +287,4 @@ button:hover {
 .hidden {
     display: none;
 }
+

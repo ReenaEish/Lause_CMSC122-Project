@@ -1,1 +1,1 @@
-// Give up Button - Auto Solver
+// Give up Button - Auto Solver (main solver algorithm)

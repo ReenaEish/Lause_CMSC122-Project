@@ -11,15 +11,16 @@
     <!-- Main Menu -->
     <div id="main-menu">
         <h1>NumSlider</h1>
-        <button type="button" id="new-game-btn" class="mbutton">New Game</button>
-        <button type="button" id="how-to-play-btn" class="mbutton">How to Play</button>
+        <button type="button" id="new-game-btn" class="mbutton"><b>New Game</b></button>
+        <button type="button" id="how-to-play-btn" class="mbutton"><b>How to Play</b></button>
     </div>
 
     <!-- Game board -->
     <div id="game-board" class="hidden">
-        <h2>Game Board Placeholder</h2>
-        <div class="placeholder">
-            [Placeholder for game board]
+        <h2>NumSlider</h2>
+        <!-- This is where the grid will render -->
+        <div id="grid-container" class="grid-container">
+            <!-- The grid will be dynamically injected here -->
         </div>
         <div id="controls">
             <!-- Back to Menu Button -->
@@ -61,5 +62,8 @@
     </div>
 
     <script src="src/main.js"></script>
+    <script src="src/tile.js"></script>
+    <script src="src/grid.js"></script>
+
 </body>
 </html>

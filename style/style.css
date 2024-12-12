@@ -319,6 +319,60 @@ button:hover {
     margin-top: 20px;
 }
 
+/* Popup Modal Styles */
+/* Popup modal styles */
+#popup-modal {
+    position: fixed; /* Ensures the modal stays in place relative to the viewport */
+    top: 55%; /* Centers vertically */
+    left: 46%; /* Centers horizontally */
+    transform: translate(-50%, -50%); /* Adjusts to center perfectly */
+    z-index: 3; /* Ensures it's on top of everything */
+    padding: 20px; /* Padding around the content */
+}
+
+/* Ensure game board or other elements don't interfere */
+#game-board.unclickable {
+    pointer-events: none; /* Prevents interactions with the game board */
+    opacity: 0.5; /* Optional: dims the board to show it's paused */
+}
+
+
+#popup-content {
+    text-align: center;
+    --background-color: #91BBE1;
+    --background-color-dark: #3B7CB8;
+    background-color: var(--background-color);
+    box-shadow: 10px 10px 0 var(--background-color-dark);
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 70px;
+    margin-left: 100px;
+    margin-top: -100px;
+    padding-top: 1px;
+    padding-bottom: 2px;
+    width: 300px;
+    height: 175px;
+    position: relative;
+    transform: translate(10%, -35%);
+    text-align: center;
+}
+
+.popup-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    margin-top: -30px;
+}
+
+.popup-btn img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+
 .hidden {
     display: none;
 }

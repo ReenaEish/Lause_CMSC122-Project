@@ -431,9 +431,9 @@ button:hover {
 
 @keyframes blink {
     0% {
-        background-color: transparent;
+        background-color: #F4EA64;
     }
     100% {
-        background-color: #F4EA64;
+        background-color: transparent ;
     }
 }

@@ -1,11 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Main (Includes Restart Button and Back Buttons)
-
     // DOM Elements
     const mainMenu = document.getElementById('main-menu');
     const gameBoard = document.getElementById('game-board');
     const howToPlay = document.getElementById('how-to-play');
     const popupModal = document.getElementById('popup-modal');
+    const newGamePopupModal = document.getElementById('new-game-popup-modal'); // New popup for confirmation
 
     // Buttons
     const newGameBtn = document.getElementById('new-game-btn');
@@ -15,33 +14,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const backToMenuBtnHow = document.getElementById('back-to-menu-btn-how');
     const popupYesBtn = document.getElementById('popup-yes-btn');
     const popupNoBtn = document.getElementById('popup-no-btn');
+    const newGameYesBtn = document.getElementById('new-game-yes-btn'); // Yes button in the new game popup
+    const newGameNoBtn = document.getElementById('new-game-no-btn'); // No button in the new game popup
 
-    // Grid container to pass to initializeGrid
     const gridContainer = document.getElementById('grid-container');
 
+    localStorage.removeItem('gameInProgress'); // To hide the continue game button
+
     // Game state
-    let gameInProgress = false; // Tracks if a game is currently active
+    let gameInProgress = localStorage.getItem('gameInProgress') === 'true'; // Load state from localStorage
+
+    // Function to disable all main menu buttons
+    function disableMainMenuButtons() {
+        mainMenu.classList.add('unclickable');
+    }
+
+    // Function to enable all main menu buttons
+    function enableMainMenuButtons() {
+        mainMenu.classList.remove('unclickable');
+    }
 
     // Event Listeners
     newGameBtn.addEventListener('click', () => {
-        toggleSection(gameBoard);
-        initializeGrid(gridContainer); // Initialize the game grid when new game starts
-        gameInProgress = true; // Game is now in progress
-        updateMainMenuButtons();
-
-        // Add to browser history for back navigation
-        history.pushState({ section: 'game' }, '', '#game');
+        if (gameInProgress) {
+            showNewGamePopup(); // Show the confirmation popup
+        } else {
+            startNewGame(); // If no game in progress, start a new game immediately
+        }
     });
 
     continueGameBtn.addEventListener('click', () => {
-        toggleSection(gameBoard);
-        console.log('Continuing previous game');
+        if (gameInProgress) {
+            toggleSection(gameBoard);
+            console.log('Continuing previous game');
+        } else {
+            console.error('No game to continue!');
+        }
     });
 
     howToPlayBtn.addEventListener('click', () => {
         toggleSection(howToPlay);
-
-        // Add to browser history for back navigation
         history.pushState({ section: 'how-to-play' }, '', '#how-to-play');
     });
 
@@ -60,37 +72,56 @@ document.addEventListener('DOMContentLoaded', () => {
     popupYesBtn.addEventListener('click', () => {
         hidePopup();
         toggleSection(mainMenu);
+        gameInProgress = true; // Ensure game state persists if "Yes" is clicked
+        saveGameState();
+        updateMainMenuButtons();
         console.log('Returning to Main Menu');
     });
 
-    // Handle browser back button navigation
-    window.addEventListener('popstate', (event) => {
-        if (event.state) {
-            const section = event.state.section;
-            if (section === 'game') {
-                toggleSection(gameBoard);
-            } else if (section === 'how-to-play') {
-                toggleSection(howToPlay);
-            } else {
-                toggleSection(mainMenu);
-            }
-        } else {
-            toggleSection(mainMenu); // Default to main menu if no state
-        }
+    newGameNoBtn.addEventListener('click', () => {
+        hideNewGamePopup(); // If user cancels, hide the popup
+        enableMainMenuButtons(); // Re-enable the main menu buttons
     });
+
+    newGameYesBtn.addEventListener('click', () => {
+        hideNewGamePopup();
+        startNewGame(); // Start a new game
+    });
+
+    // Function to Show New Game Popup
+    function showNewGamePopup() {
+        newGamePopupModal.classList.remove('hidden');
+        disableMainMenuButtons(); // Disable main menu buttons only when the popup is visible
+        gameBoard.classList.add('unclickable'); // Prevent interactions with the game board
+    }
+
+    // Function to Hide New Game Popup
+    function hideNewGamePopup() {
+        newGamePopupModal.classList.add('hidden');
+        gameBoard.classList.remove('unclickable');
+        enableMainMenuButtons(); // Re-enable the main menu buttons when the popup is hidden
+    }
+
+    // Function to Start New Game
+    function startNewGame() {
+        toggleSection(gameBoard);
+        initializeGrid(gridContainer); // Initialize the game grid when new game starts
+        gameInProgress = true; // Game is now in progress
+        saveGameState(); // Save the state
+        updateMainMenuButtons();
+        history.pushState({ section: 'game' }, '', '#game');
+    }
 
     // Function to Toggle Sections
     function toggleSection(section) {
-        // Hide all sections
         [mainMenu, gameBoard, howToPlay].forEach(sec => sec.classList.add('hidden'));
-        // Show the selected section
         section.classList.remove('hidden');
     }
 
     // Function to Show Popup
     function showPopup() {
         popupModal.classList.remove('hidden');
-        gameBoard.classList.add('unclickable'); // Prevent interactions with the game board
+        gameBoard.classList.add('unclickable');
     }
 
     // Function to Hide Popup
@@ -108,6 +139,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Function to Save Game State
+    function saveGameState() {
+        localStorage.setItem('gameInProgress', gameInProgress);
+    }
+
+    // Ensure Continue Game Button is Hidden on Initial Load if No Game
+    if (!gameInProgress) {
+        continueGameBtn.classList.add('hidden');
+    }
+
     // Initialize state
-    updateMainMenuButtons(); // Ensure Continue Game button is hidden initially
+    updateMainMenuButtons();
 });

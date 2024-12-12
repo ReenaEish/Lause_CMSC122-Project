@@ -254,6 +254,9 @@ button:hover {
     width: 300px;
 }
 
+#main-menu.unclickable {
+    pointer-events: none;
+}
 
 /* Main Menu */
 #main-menu {
@@ -337,6 +340,7 @@ button:hover {
 }
 
 
+
 #popup-content {
     text-align: center;
     --background-color: #91BBE1;
@@ -359,6 +363,27 @@ button:hover {
     text-align: center;
 }
 
+#new-game-popup-content {
+    text-align: center;
+    --background-color: #91BBE1;
+    --background-color-dark: #3B7CB8;
+    background-color: var(--background-color);
+    box-shadow: 10px 10px 0 var(--background-color-dark);
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 70px;
+    margin-left: 100px;
+    margin-top: -100px;
+    padding-top: 1px;
+    padding-bottom: 2px;
+    width: 300px;
+    height: 230px;
+    position: relative;
+    transform: translate(-50%, 46%);
+    text-align: center;
+}
 .popup-buttons {
     display: flex;
     justify-content: center;
@@ -366,12 +391,29 @@ button:hover {
     margin-top: -30px;
 }
 
+.new-game-popup-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    margin-top: -30px;
+}
+
+.new-popup-btn img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+
 .popup-btn img {
     width: 30px;
     height: 30px;
     cursor: pointer;
 }
 
+#continue-game-btn.hidden {
+    display: none;
+}
 
 .hidden {
     display: none;

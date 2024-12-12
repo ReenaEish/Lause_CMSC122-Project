@@ -71,10 +71,23 @@ let grid = [];
 let state = gameState.GAME_IDLE; // Track the game state
 let gridArray = Array.from({ length: 16 }, (_, index) => (index === 15 ? 0 : index + 1)); // Initial grid state
 
-// Initialize the grid with tile numbers
+// Separate shuffle logic to a new function
+function shuffleGrid() {
+    let i = gridArray.length,
+        randomNumIndex,
+        randomNum;
+    while (--i > 0) {
+        randomNumIndex = Math.floor(Math.random() * (i + 1));
+        randomNum = gridArray[randomNumIndex];
+        gridArray[randomNumIndex] = gridArray[i];
+        gridArray[i] = randomNum;
+    }
+}
+
+// Update the initialization to use the shuffle function
 function initGrid() {
     // Shuffle the grid array at the beginning
-    gridArray = shuffle(gridArray);
+    shuffleGrid(); // Call the new shuffle function
     grid = [];
     for (let i = 0; i < 4; i++) {
         const row = [];
@@ -85,6 +98,7 @@ function initGrid() {
     }
     renderGrid();
 }
+
 
 // Render the grid with current values
 function renderGrid() {

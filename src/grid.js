@@ -268,3 +268,80 @@ function backToMenu() {
         });
     }
 }
+
+// Function to handle hint logic
+function showHint() {
+    if (state === gameState.GAME_PAUSED || state === gameState.GAME_OVER) return; // Do nothing if paused or over
+
+    const emptyPos = findEmptyTilePosition();
+    const adjacentTiles = getAdjacentTiles(emptyPos);
+    let hintTile = null;
+
+    // Find the first tile that is adjacent and not in the correct position
+    for (let i = 0; i < adjacentTiles.length; i++) {
+        const tilePos = adjacentTiles[i];
+        const tileValue = gridArray[tilePos];
+        const expectedValue = tilePos + 1;
+
+        // Skip tiles already in the correct position
+        if (tileValue !== expectedValue && tileValue !== 0) {
+            hintTile = tilePos;
+            break;
+        }
+    }
+
+    if (hintTile !== null) {
+        highlightTile(hintTile);  // Highlight the tile
+        blinkTile(hintTile);  // Make it blink for 3 seconds
+    }
+}
+
+// Get the adjacent tiles of the empty tile
+function getAdjacentTiles(emptyPos) {
+    const row = Math.floor(emptyPos / 4);
+    const col = emptyPos % 4;
+    const adjacentTiles = [];
+
+    // Check the four directions (up, down, left, right)
+    if (row > 0) adjacentTiles.push(emptyPos - 4); // Up
+    if (row < 3) adjacentTiles.push(emptyPos + 4); // Down
+    if (col > 0) adjacentTiles.push(emptyPos - 1); // Left
+    if (col < 3) adjacentTiles.push(emptyPos + 1); // Right
+
+    return adjacentTiles;
+}
+
+// Function to highlight the hinted tile
+function highlightTile(tilePos) {
+    const row = Math.floor(tilePos / 4);
+    const col = tilePos % 4;
+    const tile = gridContainer.children[row * 4 + col];
+
+    tile.classList.add('hint'); // Add a CSS class for highlighting
+}
+
+// Function to make the hinted tile blink
+function blinkTile(tilePos) {
+    const row = Math.floor(tilePos / 4);
+    const col = tilePos % 4;
+    const tile = gridContainer.children[row * 4 + col];
+
+    // Save the original background color
+    const originalColor = tile.style.backgroundColor;
+    
+    // Start the blinking effect
+    tile.style.backgroundColor = '#F4EA64';
+
+    const stopBlinking = () => {
+        tile.style.backgroundColor = originalColor;
+        tile.classList.remove('hint');
+        clearTimeout(blinkTimeout);
+    };
+
+    const blinkTimeout = setTimeout(stopBlinking, 3000); // Stop blinking after 3 seconds
+
+    tile.addEventListener('click', stopBlinking, { once: true }); // Stop blinking if the tile is clicked
+}
+
+// Add a button to trigger the hint
+document.getElementById('hint-btn').addEventListener('click', showHint);

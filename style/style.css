@@ -424,3 +424,16 @@ button:hover {
     display: none;
 }
 
+.tile.hint {
+    border: none; /* Highlighted border */
+    animation: blink 0.5s infinite alternate; /* Blinking effect */
+}
+
+@keyframes blink {
+    0% {
+        background-color: transparent;
+    }
+    100% {
+        background-color: #F4EA64;
+    }
+}

@@ -256,6 +256,7 @@ button:hover {
 
 #main-menu.unclickable {
     pointer-events: none;
+    opacity: 0.5;
 }
 
 /* Main Menu */

@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     newGameYesBtn.addEventListener('click', () => {
         hideNewGamePopup();
-        startFreshGame(); // Start a completely fresh game// Start a new game
+        startFreshGame(); // Start a completely fresh game
     });
 
     // Function to Show New Game Popup
@@ -95,12 +95,14 @@ document.addEventListener('DOMContentLoaded', () => {
         newGamePopupModal.classList.remove('hidden');
         gameBoard.classList.add('unclickable'); // Prevent interactions with the game board
         disableMainMenuButtons(); // Disable main menu buttons
+        mainMenu.classList.add('unclickable'); // Disable main menu interactions
     }
 
     // Function to Hide New Game Popup
     function hideNewGamePopup() {
         newGamePopupModal.classList.add('hidden');
         gameBoard.classList.remove('unclickable');
+        mainMenu.classList.remove('unclickable'); // Re-enable main menu
     }
 
     // Function to Start New Game
@@ -141,12 +143,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function showPopup() {
         popupModal.classList.remove('hidden');
         gameBoard.classList.add('unclickable');
+        mainMenu.classList.add('unclickable'); // Disable main menu buttons when the popup is active
     }
 
     // Function to Hide Popup
     function hidePopup() {
         popupModal.classList.add('hidden');
         gameBoard.classList.remove('unclickable');
+        mainMenu.classList.remove('unclickable'); // Re-enable main menu buttons when the popup is hidden
     }
 
     // Function to Update Main Menu Buttons

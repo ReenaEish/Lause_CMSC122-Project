@@ -70,6 +70,7 @@ const gridContainer = document.getElementById("grid-container");
 let grid = [];
 let state = gameState.GAME_IDLE; // Track the game state
 let gridArray = Array.from({ length: 16 }, (_, index) => (index === 15 ? 0 : index + 1)); // Initial grid state
+let initialGridState = [];  // This will store the initial state of the grid
 
 // Separate shuffle logic to a new function
 function shuffleGrid() {
@@ -86,7 +87,10 @@ function shuffleGrid() {
 
 // Update the initialization to use the shuffle function
 function initGrid() {
-    shuffleGrid(); // Call the new shuffle function
+    // Reset the initial state each time a new game starts
+    shuffleGrid(); // Shuffle the grid
+    initialGridState = [...gridArray];  // Save the initial state
+
     grid = [];
     for (let i = 0; i < 4; i++) {
         const row = [];
@@ -95,7 +99,7 @@ function initGrid() {
         }
         grid.push(row);
     }
-    renderGrid();
+    renderGrid();  // Render the grid
 }
 
 // Render the grid with current values
@@ -129,7 +133,6 @@ function renderGrid() {
         }
     }
 }
-
 
 // Handle tile click to swap with the empty space
 function handleTileClick(row, col) {
@@ -207,6 +210,17 @@ function handleKeyPress(event) {
 initGrid();
 document.addEventListener("keydown", handleKeyPress);
 
+// Function to restart the game by resetting the grid to its initial state
+function restartGame() {
+    gridArray = [...initialGridState];  // Reset to the initial grid state
+    grid = updateGridFromArray(gridArray);  // Update grid from the array
+    renderGrid();  // Re-render the grid
+    state = gameState.GAME_STARTED;  // Set the game state to 'GAME_STARTED'
+}
+
+// Add event listener for the restart button
+document.getElementById('restart-btn').addEventListener('click', restartGame);
+
 // Handling the 'New Game' Popup
 function confirmNewGame() {
     if (state === gameState.GAME_STARTED) {
@@ -220,7 +234,7 @@ function confirmNewGame() {
         document.body.appendChild(confirmPopup);
 
         document.getElementById('yes').addEventListener('click', () => {
-            initGrid();
+            initGrid();  // Initialize a new shuffled grid
             confirmPopup.remove();
             state = gameState.GAME_STARTED;
         });

@@ -415,6 +415,10 @@ button:hover {
     display: none;
 }
 
+.correct-position {
+    background-color: #61F3BE; /* Tile turns green when in correct position */
+}
+
 .hidden {
     display: none;
 }

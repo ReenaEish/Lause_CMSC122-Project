@@ -26,12 +26,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to disable all main menu buttons
     function disableMainMenuButtons() {
-        mainMenu.classList.add('unclickable');
+        const mainMenuButtons = [newGameBtn, continueGameBtn, howToPlayBtn];
+        mainMenuButtons.forEach(btn => btn.classList.add('unclickable'));
     }
 
     // Function to enable all main menu buttons
     function enableMainMenuButtons() {
-        mainMenu.classList.remove('unclickable');
+        const mainMenuButtons = [newGameBtn, continueGameBtn, howToPlayBtn];
+        mainMenuButtons.forEach(btn => btn.classList.remove('unclickable'));
     }
 
     // Event Listeners
@@ -85,31 +87,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
     newGameYesBtn.addEventListener('click', () => {
         hideNewGamePopup();
-        startNewGame(); // Start a new game
+        startFreshGame(); // Start a completely fresh game// Start a new game
     });
 
     // Function to Show New Game Popup
     function showNewGamePopup() {
         newGamePopupModal.classList.remove('hidden');
-        disableMainMenuButtons(); // Disable main menu buttons only when the popup is visible
         gameBoard.classList.add('unclickable'); // Prevent interactions with the game board
+        disableMainMenuButtons(); // Disable main menu buttons
     }
 
     // Function to Hide New Game Popup
     function hideNewGamePopup() {
         newGamePopupModal.classList.add('hidden');
         gameBoard.classList.remove('unclickable');
-        enableMainMenuButtons(); // Re-enable the main menu buttons when the popup is hidden
     }
 
     // Function to Start New Game
     function startNewGame() {
         toggleSection(gameBoard);
         initializeGrid(gridContainer); // Initialize the game grid when new game starts
+        shuffleTiles(gridContainer); // Shuffle tiles for the new game
         gameInProgress = true; // Game is now in progress
         saveGameState(); // Save the state
         updateMainMenuButtons();
         history.pushState({ section: 'game' }, '', '#game');
+    }
+
+    // Function to Start a Fresh Game (without tracking the previous puzzle data)
+    function startFreshGame() {
+        toggleSection(gameBoard); // Switch to the game board view
+        initGrid(); // Reinitialize the grid
+        shuffleTiles(gridContainer); // Shuffle tiles for the new game
+        updateMainMenuButtons(); // Update main menu buttons to reflect no progress
+        history.pushState({ section: 'game' }, '', '#game'); // Update history state
+    }
+
+    // Function to Shuffle Tiles
+    function shuffleTiles(gridContainer) {
+        const tiles = Array.from(gridContainer.children);
+        const shuffledTiles = tiles.sort(() => Math.random() - 0.5); // Shuffle tiles randomly
+        gridContainer.innerHTML = ''; // Clear the container
+        shuffledTiles.forEach(tile => gridContainer.appendChild(tile)); // Re-add shuffled tiles
     }
 
     // Function to Toggle Sections

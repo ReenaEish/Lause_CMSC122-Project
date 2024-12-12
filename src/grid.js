@@ -86,7 +86,6 @@ function shuffleGrid() {
 
 // Update the initialization to use the shuffle function
 function initGrid() {
-    // Shuffle the grid array at the beginning
     shuffleGrid(); // Call the new shuffle function
     grid = [];
     for (let i = 0; i < 4; i++) {
@@ -99,7 +98,6 @@ function initGrid() {
     renderGrid();
 }
 
-
 // Render the grid with current values
 function renderGrid() {
     gridContainer.innerHTML = ''; // Clear the grid
@@ -110,10 +108,18 @@ function renderGrid() {
             tile.classList.add("tile");
             const currentValue = grid[i][j];
 
+            // Check if the current tile is in the correct position
             if (currentValue === 0) {
                 tile.classList.add("empty");
             } else {
                 tile.textContent = currentValue;
+
+                // Apply 'correct-position' class if tile is in the correct position
+                const expectedValue = i * 4 + j + 1;
+                if (currentValue === expectedValue) {
+                    tile.classList.add("correct-position");
+                }
+
                 tile.addEventListener("click", () => handleTileClick(i, j));
             }
 
@@ -124,8 +130,11 @@ function renderGrid() {
     }
 }
 
+
 // Handle tile click to swap with the empty space
 function handleTileClick(row, col) {
+    if (state === gameState.GAME_PAUSED || state === gameState.GAME_OVER) return; // Do nothing if paused or over
+
     const emptyPos = findEmptyTilePosition();
     const clickedPos = row * 4 + col;
 
@@ -156,6 +165,8 @@ function updateGridFromArray(arr) {
 
 // Move tile using keyboard input
 function handleKeyPress(event) {
+    if (state === gameState.GAME_PAUSED || state === gameState.GAME_OVER) return; // Prevent moves if paused or over
+
     const emptyPos = findEmptyTilePosition();
     let newPos;
 
@@ -195,3 +206,51 @@ function handleKeyPress(event) {
 // Initialize the grid and add keyboard event listener
 initGrid();
 document.addEventListener("keydown", handleKeyPress);
+
+// Handling the 'New Game' Popup
+function confirmNewGame() {
+    if (state === gameState.GAME_STARTED) {
+        const confirmPopup = document.createElement('div');
+        confirmPopup.classList.add('popup');
+        confirmPopup.innerHTML = `
+            <h3>Start a new game?</h3>
+            <button id="yes">Yes</button>
+            <button id="no">No</button>
+        `;
+        document.body.appendChild(confirmPopup);
+
+        document.getElementById('yes').addEventListener('click', () => {
+            initGrid();
+            confirmPopup.remove();
+            state = gameState.GAME_STARTED;
+        });
+
+        document.getElementById('no').addEventListener('click', () => {
+            confirmPopup.remove();
+        });
+    }
+}
+
+// Handling the 'Back to Menu' Button
+function backToMenu() {
+    if (state === gameState.GAME_STARTED) {
+        const confirmPopup = document.createElement('div');
+        confirmPopup.classList.add('popup');
+        confirmPopup.innerHTML = `
+            <h3>Back to Menu?</h3>
+            <button id="yes">Yes</button>
+            <button id="no">No</button>
+        `;
+        document.body.appendChild(confirmPopup);
+
+        document.getElementById('yes').addEventListener('click', () => {
+            state = gameState.GAME_IDLE;
+            confirmPopup.remove();
+            // Additional actions for back to menu can be added here
+        });
+
+        document.getElementById('no').addEventListener('click', () => {
+            confirmPopup.remove();
+        });
+    }
+}

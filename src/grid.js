@@ -2,7 +2,7 @@ const gameState = {
     GAME_IDLE: '__game_idle__',
     GAME_STARTED: '__game_started__',
     GAME_OVER: '__game_over__',
-    GAME_PAUSED: '__game_paused__'
+    AUTO_SOLVING: "auto-solving"
 };
 
 const swap = (arr, from, to) => {
@@ -149,7 +149,8 @@ function showPuzzleSolvedModal() {
 
 // Replace alert with modal logic in handleTileClick
 function handleTileClick(row, col) {
-    if (state === gameState.GAME_PAUSED || state === gameState.GAME_OVER) return;
+    if (state === gameState.GAME_OVER) return;
+    if (state === gameState.AUTO_SOLVING) return;
 
     const emptyPos = findEmptyTilePosition();
     const clickedPos = row * 4 + col;
@@ -162,9 +163,6 @@ function handleTileClick(row, col) {
         // Check if the puzzle is solved only after rendering the grid
         if (checkArray(gridArray)) {
             state = gameState.GAME_OVER; // Update game state to 'over'
-            setTimeout(() => {
-                showPuzzleSolvedModal(); // Show modal after ensuring rendering is complete
-            }, 100); // Small delay for smooth rendering
         }
     }
 }
@@ -198,7 +196,7 @@ function updateGridFromArray(arr) {
 
 // Move tile using keyboard input
 function handleKeyPress(event) {
-    if (state === gameState.GAME_PAUSED || state === gameState.GAME_OVER) return; // Prevent moves if paused or over
+    if (state === gameState.GAME_OVER) return; // Prevent moves if paused or over
 
     const emptyPos = findEmptyTilePosition();
     let newPos;
@@ -230,8 +228,8 @@ function handleKeyPress(event) {
         grid = updateGridFromArray(gridArray);
         renderGrid();
         if (checkArray(gridArray)) {
-            alert("Congratulations! You solved the puzzle.");
             state = gameState.GAME_OVER;
+            showPuzzleSolvedModal(); // Show modal after ensuring rendering is complete
         }
     }
 }
@@ -250,6 +248,12 @@ function restartGame() {
 
 // Add event listener for the restart button
 document.getElementById('restart-btn').addEventListener('click', restartGame);
+
+// give up button - Auto Solver
+document.getElementById('give-up-btn').addEventListener('click', () => {
+    startAutoSolve();  // Call startAutoSolve when the button is clicked
+});
+
 
 // Handling the 'New Game' Popup
 function confirmNewGame() {
@@ -275,6 +279,7 @@ function confirmNewGame() {
     }
 }
 
+
 // Handling the 'Back to Menu' Button
 function backToMenu() {
     if (state === gameState.GAME_STARTED) {
@@ -299,49 +304,6 @@ function backToMenu() {
     }
 }
 
-// Add an event listener for the 'Give Up' button
-document.getElementById('give-up-btn').addEventListener('click', () => {
-    if (state === gameState.GAME_PAUSED || state === gameState.GAME_OVER) return; // Prevent if paused or over
-
-    // Disable further interactions with the grid while the solver runs
-    gridContainer.style.pointerEvents = 'none'; // Disable clicking on the grid
-
-    // Show an alert that the auto-solver is running
-    alert('Auto-solver is running...');
-
-    // Call the solvePuzzle function from solver.js
-    solvePuzzle();  // This will trigger the auto-solver
-
-    // Optionally, display a "Puzzle Solved" message or modal after the solver completes
-});
-
-
-// Function to handle hint logic
-function showHint() {
-    if (state === gameState.GAME_PAUSED || state === gameState.GAME_OVER) return; // Do nothing if paused or over
-
-    const emptyPos = findEmptyTilePosition();
-    const adjacentTiles = getAdjacentTiles(emptyPos);
-    let hintTile = null;
-
-    // Find the first tile that is adjacent and not in the correct position
-    for (let i = 0; i < adjacentTiles.length; i++) {
-        const tilePos = adjacentTiles[i];
-        const tileValue = gridArray[tilePos];
-        const expectedValue = tilePos + 1;
-
-        // Skip tiles already in the correct position
-        if (tileValue !== expectedValue && tileValue !== 0) {
-            hintTile = tilePos;
-            break;
-        }
-    }
-
-    if (hintTile !== null) {
-        highlightTile(hintTile);  // Highlight the tile
-        blinkTile(hintTile);  // Make it blink for 3 seconds
-    }
-}
 
 // Get the adjacent tiles of the empty tile
 function getAdjacentTiles(emptyPos) {
@@ -356,6 +318,68 @@ function getAdjacentTiles(emptyPos) {
     if (col < 3) adjacentTiles.push(emptyPos + 1); // Right
 
     return adjacentTiles;
+}
+
+// Function to handle hint logic using IDA* algorithm
+function showHint() {
+    if (state === gameState.GAME_PAUSED || state === gameState.GAME_OVER) return; // Do nothing if paused or over
+
+    // Run the IDA* algorithm to get the next best move
+    const bestMove = runIDAstar();
+
+    if (bestMove !== null) {
+        highlightTile(bestMove);  // Highlight the tile
+        blinkTile(bestMove);  // Make it blink for 3 seconds
+    }
+}
+
+// Function to run IDA* algorithm and return the next best move
+function runIDAstar() {
+    const startState = gridArray.slice(); // Copy the current grid state
+    const solution = IDAstarSolver(startState); // Assuming you have an IDA* solver function implemented
+
+    if (solution && solution.length > 0) {
+        // Return the first move in the solution (the tile to hint)
+        return solution[0].move; // Adjust this based on how your solution is structured
+    }
+    return null;  // Return null if no valid hint is found
+}
+
+// IDA* solver function (simplified, you should implement the actual logic)
+function IDAstarSolver(startState) {
+    // This is a simplified placeholder function
+    // You should implement the IDA* algorithm here to solve the puzzle
+
+    const goalState = getGoalState(); // Define the solved puzzle state
+    let threshold = calculateInitialThreshold(startState, goalState); // Initialize the threshold for IDA*
+
+    while (threshold !== Infinity) {
+        const result = depthLimitedSearch(startState, goalState, 0, threshold);
+        if (result.status === 'FOUND') {
+            return result.solution; // Return the solution path
+        } else if (result.status === 'CUT_OFF') {
+            threshold = result.newThreshold; // Update threshold
+        }
+    }
+    return null;  // No solution found
+}
+
+// Function to calculate the initial threshold (based on Manhattan distance or similar)
+function calculateInitialThreshold(startState, goalState) {
+    // Implement the logic to calculate the heuristic for the starting state
+    return heuristic(startState, goalState);
+}
+
+// Placeholder for depth-limited search function (used in IDA*)
+function depthLimitedSearch(state, goalState, depth, threshold) {
+    // Implement the logic for depth-limited search with pruning based on threshold
+    // Return an object with the status and solution path (if found)
+    return { status: 'CUT_OFF', newThreshold: threshold + 1 };  // Simplified placeholder
+}
+
+// Function to get the solved puzzle state (goal state)
+function getGoalState() {
+    return Array.from({ length: 16 }, (_, index) => (index + 1) % 16);  // Example goal state: [1, 2, 3, ..., 0]
 }
 
 // Function to highlight the hinted tile
@@ -392,3 +416,4 @@ function blinkTile(tilePos) {
 
 // Add a button to trigger the hint
 document.getElementById('hint-btn').addEventListener('click', showHint);
+

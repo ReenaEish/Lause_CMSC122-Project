@@ -18,3 +18,7 @@
 
 5. Mahesh Huddar (2021). 1. A star Search Algorithm to Move from start state to final state 8 Puzzle Problem by Dr. Mahesh H
     --> https://youtu.be/dvWk0vgHijs?si=w-_bvCZ32gFTIcJ5
+
+6. Michael Schrandt (2022). Solving the 15 Puzzle in Python with IDA*
+    --> https://www.youtube.com/watch?v=g0phuZDM6Mg 
+    

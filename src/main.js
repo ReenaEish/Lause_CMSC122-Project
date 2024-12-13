@@ -176,3 +176,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize state
     updateMainMenuButtons();
 });
+

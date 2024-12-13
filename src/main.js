@@ -134,48 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
         shuffledTiles.forEach(tile => gridContainer.appendChild(tile)); // Re-add shuffled tiles
     }
 
-    // Function to check if the puzzle is solved
-// Function to check if the puzzle is solved
-function checkIfPuzzleSolved() {
-    // Assuming checkArray() is the function that checks if the grid is in the solved state
-    if (checkArray(gridArray)) {
-        state = gameState.GAME_OVER; // Mark the game as over
-
-        // Trigger the puzzle solved modal
-        showPuzzleSolvedModal();
-    }
-}
-
-// Example checkArray function (this should return true if the array is in the solved order)
-function checkArray(gridArray) {
-    // Assuming the solved state is when the array is in sequential order from 1 to 15, with 0 as the empty tile
-    for (let i = 0; i < gridArray.length - 1; i++) {
-        if (gridArray[i] !== i + 1) {
-            return false; // If any tile is not in the correct order, it's not solved
-        }
-    }
-    return gridArray[gridArray.length - 1] === 0; // Check if the last tile (empty tile) is at position 15
-}
-
-// Function to show the puzzle solved modal
-function showPuzzleSolvedModal() {
-    const solvedModal = document.getElementById("solved-popup-modal");
-    solvedModal.classList.remove("hidden"); // Make modal visible
-
-    // Add event listener to the "Back to Menu" button
-    const backToMenuButton = document.getElementById("solved-popup-ok-btn");
-    backToMenuButton.addEventListener("click", () => {
-        toggleSection(mainMenu); // Navigate back to the main menu
-        gameInProgress = false; // Mark the game as not in progress
-        saveGameState(); // Save the game state
-        updateMainMenuButtons(); // Update main menu buttons visibility
-    });
-}
-
-
-// Modify this section to call `checkIfPuzzleSolved()` when the game is completed
-// For example, when a tile moves or an auto-solver runs, check if the puzzle is solved
-
     // Function to Toggle Sections
     function toggleSection(section) {
         [mainMenu, gameBoard, howToPlay].forEach(sec => sec.classList.add('hidden'));

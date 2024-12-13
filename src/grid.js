@@ -134,20 +134,7 @@ function renderGrid() {
     }
 }
 
-// Handle tile click to swap with the empty space
-function showPuzzleSolvedModal() {
-    const solvedModal = document.getElementById("puzzle-solved-modal");
-    solvedModal.classList.add("active");
-
-    // Add event listener to the "Back to Menu" button
-    const backToMenuButton = document.getElementById("puzzle-solved-btn");
-    backToMenuButton.addEventListener("click", () => {
-        // Navigate back to the menu or perform another action
-        window.location.href = "menu.html"; // Example action
-    });
-}
-
-// Replace alert with modal logic in handleTileClick
+// handleTileClick
 function handleTileClick(row, col) {
     if (state === gameState.GAME_OVER) return;
     if (state === gameState.AUTO_SOLVING) return;
@@ -167,18 +154,6 @@ function handleTileClick(row, col) {
     }
 }
 
-// Refactored modal function for solving puzzle
-function showPuzzleSolvedModal() {
-    const solvedModal = document.getElementById("solved-popup-modal");
-    solvedModal.classList.remove("hidden"); // Make the modal visible
-
-    // Add event listener to the "Back to Menu" button
-    const backToMenuButton = document.getElementById("solved-popup-ok-btn");
-    backToMenuButton.addEventListener("click", () => {
-        // Navigate back to the main menu or perform another action
-        window.location.href = "menu.html"; // Example action to navigate to the menu
-    });
-}
 
 // Find position of the empty space (0)
 function findEmptyTilePosition() {
@@ -229,7 +204,6 @@ function handleKeyPress(event) {
         renderGrid();
         if (checkArray(gridArray)) {
             state = gameState.GAME_OVER;
-            showPuzzleSolvedModal(); // Show modal after ensuring rendering is complete
         }
     }
 }

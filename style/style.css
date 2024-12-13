@@ -475,7 +475,7 @@ button:hover {
 
 /* Button styling for the "Back to Menu" button */
 #solved-popup-ok-btn {
-    background-color: var(--background-color-dark);
+    background-color: #FF9A59;
     color: #ffffff;
     font-size: 18px;
     font-weight: bold;
@@ -483,18 +483,17 @@ button:hover {
     border-radius: 4px;
     padding: 10px 20px;
     cursor: pointer;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     margin-top: 20px;
     transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
 #solved-popup-ok-btn:hover {
-    background-color: #2A69A0; /* Slightly darker blue on hover */
+    background-color: #E65B00; 
     transform: scale(1.05); /* Enlarges slightly on hover */
 }
 
 #solved-popup-ok-btn:active {
-    background-color: #1C4E82; /* Even darker blue on click */
+    background-color: #DF6F27; 
     transform: scale(0.95); /* Shrinks slightly on click */
 }
 

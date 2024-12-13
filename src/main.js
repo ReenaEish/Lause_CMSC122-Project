@@ -105,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
         mainMenu.classList.remove('unclickable'); // Re-enable main menu
     }
 
+
     // Function to Start New Game
     function startNewGame() {
         toggleSection(gameBoard);
